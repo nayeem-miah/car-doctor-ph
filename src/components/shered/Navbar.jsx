@@ -69,6 +69,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-end"> 
           <a className="btn btn-outline hover:bg-red-500 border-red-600">Appointment</a>
+          <Link href={'/login'} className="btn btn-outline ml-2 bg-red-500 border-red-600">login</Link>
         </div>
       </div>
     );

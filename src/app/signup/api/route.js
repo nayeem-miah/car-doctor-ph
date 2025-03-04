@@ -1,0 +1,18 @@
+import { connectDB } from "@/lib/connectDB";
+
+export const POST = async(request)=>{
+    const newUser = await request.json();
+    try{
+        const db = await connectDB();
+        const userCollection = db.collection("users");
+        const existingUser = await userCollection.findOne({email : newUser.email});
+        if(existingUser){
+            return Response.json({message : "user already exists"}, {status : 400});
+        }
+        const result = await userCollection.insertOne(newUser);
+        return Response.json({message : "user created successfully"}, {status : 200});
+}catch(e){
+    console.log(e);
+    return Response.json({message : "something went wrong",e}, {status : 500});
+}   
+}

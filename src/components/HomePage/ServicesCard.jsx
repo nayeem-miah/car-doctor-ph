@@ -4,10 +4,13 @@ import Link from "next/link";
 
 const ServiceCard = ({ service }) => {
     const { _id, title, img, price } = service;
+
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
             <figure className="px-10 pt-10">
-                <Image height={200} width={200}  src={img} alt="service img" className="rounded-xl" />
+                <Image src={img} alt="service img" width={200} height={200} className="rounded-xl" />
+
+                {/* <img src={img} alt="" /> */}
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{title}</h2>
