@@ -1,28 +1,31 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 
 const SignUp = () => {
+    const router = useRouter();
 
-    const handleSignUp =async (event) => {
+    const handleSignUp = async (event) => {
         event.preventDefault();
         const newUser = {
-            name : event.target.name.value,
-            email : event.target.email.value,
-            password : event.target.password.value
+            name: event.target.name.value,
+            email: event.target.email.value,
+            password: event.target.password.value
         }
-        const res= await fetch("http://localhost:3000/signup/api", {
-            method: "POST", 
+        const res = await fetch("http://localhost:3000/signup/api", {
+            method: "POST",
             headers: {
-                "content-type":"application/json" 
+                "content-type": "application/json"
             },
-            body : JSON.stringify(newUser)
+            body: JSON.stringify(newUser)
         })
-        if(res.status === 200){
+        if (res.status === 200) {
             event.target.reset()
             console.log("user created success");
             alert("user created success")
+            router.push('/')
         }
     }
 
