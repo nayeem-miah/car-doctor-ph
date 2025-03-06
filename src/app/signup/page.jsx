@@ -5,25 +5,32 @@ import Link from "next/link";
 
 const SignUp = () => {
 
-
-    const handleSignUp = event => {
+    const handleSignUp =async (event) => {
         event.preventDefault();
-        const form = event.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const password = form.password.value;
-       
-
-   const newUser = {name, email, password};
-        console.log(newUser);
-    
+        const newUser = {
+            name : event.target.name.value,
+            email : event.target.email.value,
+            password : event.target.password.value
+        }
+        const res= await fetch("http://localhost:3000/signup/api", {
+            method: "POST", 
+            headers: {
+                "content-type":"application/json" 
+            },
+            body : JSON.stringify(newUser)
+        })
+        if(res.status === 200){
+            event.target.reset()
+            console.log("user created success");
+            alert("user created success")
+        }
     }
 
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row">
                 <div className="w-1/2 mr-12">
-                    <Image width={400} height={400} src="/assets/images/login/login.svg" alt="" />
+                    <Image width={400} height={400} src="/assets/images/login/login.svg" alt="login img" />
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body">

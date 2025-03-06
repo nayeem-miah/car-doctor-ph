@@ -1,9 +1,12 @@
-function AuthProvider({children}) {
-    return ( 
-        <div>
-           {children}
-        </div>
-     );
+"use client"
+import { SessionProvider } from "next-auth/react";
+
+function AuthProvider({ children }) {
+   return (
+      <SessionProvider>
+         {children}
+      </SessionProvider>
+   );
 }
 
 export default AuthProvider;

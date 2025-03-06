@@ -1,17 +1,28 @@
 'use client'
 import Image from "next/image";
 import Link from "next/link";
+import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation";
 
 
 const Login = () => {
-
-  const handleLogin = (event) => {
+  const router = useRouter();
+  const handleLogin = async (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(name, email, password);
- 
+    const user = { email, password };
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false
+    })
+    // console.log("response is ----------?", res);
+    if (res.status === 200) {
+      alert("login success")
+      router.push('/')
+    }
   };
 
   return (
@@ -61,7 +72,7 @@ const Login = () => {
             </form>
             <p className="my-4 text-center">
               New to Car Doctors{" "}
-              <Link  className="text-orange-600 font-bold" href="/signup">
+              <Link className="text-orange-600 font-bold" href="/signup">
                 Sign Up
               </Link>{" "}
             </p>

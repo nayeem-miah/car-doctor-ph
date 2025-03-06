@@ -7,9 +7,10 @@ export const POST = async(request)=>{
         const userCollection = db.collection("users");
         const existingUser = await userCollection.findOne({email : newUser.email});
         if(existingUser){
-            return Response.json({message : "user already exists"}, {status : 400});
+            return Response.json({message : "user already exists"}, {status : 304});
         }
         const result = await userCollection.insertOne(newUser);
+        // console.log(result);
         return Response.json({message : "user created successfully"}, {status : 200});
 }catch(e){
     console.log(e);
