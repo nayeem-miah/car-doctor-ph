@@ -4,6 +4,7 @@ import Link from "next/link";
 
 const ServiceCard = ({ service }) => {
     const { _id, title, img, price } = service;
+    // console.log(service);
 
     return (
         <div className="card w-96 bg-base-100 shadow-xl">

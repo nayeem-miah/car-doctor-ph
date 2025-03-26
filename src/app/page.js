@@ -8,7 +8,9 @@ export default function Home() {
    <div>
     <Banner/>
     <About/>
-    <Services/>
+      <div className="my-10">
+      <Services/>
+    </div>
    </div>
   );
 }

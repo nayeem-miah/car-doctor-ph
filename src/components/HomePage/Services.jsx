@@ -8,7 +8,7 @@ const Services = () => {
   // const [search, setSearch] = useState("");
 
   const services = Sevs;
-  // console.log(services);
+  console.log(services);
 
 
   // const [min , setMin] = useState(undefined);
@@ -55,8 +55,8 @@ const Services = () => {
         </div> */}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {services.map((service)=>
-        <ServiceCard key={service._id} service={service}/>
+        {services.map((service) =>
+          <ServiceCard key={service._id} service={service} />
         )}
       </div>
     </div>
