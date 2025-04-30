@@ -3,7 +3,7 @@ import Link from "next/link";
 
 
 const ServiceCard = ({ service }) => {
-    const { _id, title, img, price } = service;
+    const { _id, title, img, price } = service || {};
     // console.log(service);
 
     return (
@@ -11,7 +11,7 @@ const ServiceCard = ({ service }) => {
             <figure className="px-10 pt-10">
                 <Image src={img} alt="service img" width={200} height={200} className="rounded-xl" />
 
-                {/* <img src={img} alt="" /> */}
+
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{title}</h2>

@@ -1,4 +1,4 @@
-import { getServicesData } from "../servicesData";
+import { getServicesData } from "../getServiceData/getData";
 import ServiceCard from "./ServicesCard";
 
 // const getServicesData = async () => {
