@@ -13,6 +13,7 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     const user = { email, password };
+    console.log(user)
     const res = await signIn("credentials", {
       email,
       password,
@@ -51,7 +52,7 @@ const Login = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   placeholder="password"
                   className="input input-bordered"

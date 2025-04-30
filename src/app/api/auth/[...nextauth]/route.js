@@ -22,7 +22,7 @@ const handler =  NextAuth({
                 const db =await connectDB()
                 const currentUser = await db.collection("users").findOne({ email })
                 if (!currentUser) {
-                    return null
+                    return null;
                 }
 
                 const passwordMatched = bcrypt.compareSync(password, currentUser.password); 
