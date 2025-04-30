@@ -2,6 +2,10 @@ import { getSingleService } from "@/components/getServiceData/getData";
 import Image from "next/image";
 import Link from "next/link";
 
+export const metadata = {
+    title: "details",
+    description: "services details page"
+}
 
 const DetailsPage = async ({ params }) => {
     // console.log("params data is ", params.id);
