@@ -78,8 +78,8 @@ const Navbar = () => {
             session.status === "authenticated" ? <div className='flex gap-3'>
               {session.status === "loading" && <p>loading</p>}
               <button onClick={() => signOut()} className='btn btn-outline ml-2 bg-red-500 border-red-600'>logout</button>
-              <div><h3 className='text-white'>{session.data.user.name}</h3>
-                <p className='text-gray-300 '>{session.data.user.email}</p></div>
+              {/* <div><h3 className='text-white'>{session.data.user.name}</h3>
+                <p className='text-gray-300 '>{session.data.user.email}</p></div> */}
             </div>
               : <Link href={'/login'} className="btn btn-outline ml-2 bg-red-500 border-red-600">login</Link>
           }
