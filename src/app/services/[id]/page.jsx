@@ -1,4 +1,5 @@
-import { getSingleService } from "@/components/getServiceData/getData";
+
+import { getSingleService } from "@/components/serviceApi/getData";
 import Image from "next/image";
 import Link from "next/link";
 

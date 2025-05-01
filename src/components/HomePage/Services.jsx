@@ -1,4 +1,5 @@
-import { getServicesData } from "../getServiceData/getData";
+
+import { getServicesData } from "../serviceApi/getData";
 import ServiceCard from "./ServicesCard";
 
 // const getServicesData = async () => {
