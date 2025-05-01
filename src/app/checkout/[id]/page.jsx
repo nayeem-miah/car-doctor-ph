@@ -1,21 +1,39 @@
-// "use client";
+"use client";
 import { getSingleService } from "@/components/serviceApi/getData";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
-const Checkout = async ({ params }) => {
+const Checkout = ({ params }) => {
 
-    const getSingleData = await getSingleService(params.id);
-    const { title, description, img, price, facility, _id } = getSingleData.data;
-    // console.log(getSingleData.data);
+    const [service, setService] = useState({});
+    const { data } = useSession()
+
+    const loadService = async () => {
+        const getSingleData = await getSingleService(params.id);
+        setService(getSingleData.data)
+    }
+
+    // destructure service data 
+    const { title, description, img, price, facility, _id } = service;
 
     const handleBooking = async (event) => {
         event.preventDefault();
-        console.log("please give booking data");
+
+        const bookingData = {
+            name: event.target.name.value,
+            email: event.target.email.value,
+            phone: event.target.value.phone,
+            title: title,
+            price: price,
+
+        }
 
 
     };
-
-
+    useEffect(() => {
+        loadService()
+    }, [params])
 
     return (
         <div className="container mx-auto">
@@ -37,13 +55,13 @@ const Checkout = async ({ params }) => {
                 </div>
             </div>
             <div className="my-12 bg-slate-300 p-12">
-                <form>
+                <form onSubmit={handleBooking}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
-                            <input type="text" name="name" className="input input-bordered" />
+                            <input defaultValue={data?.user?.name} type="text" name="name" className="input input-bordered" />
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -56,7 +74,7 @@ const Checkout = async ({ params }) => {
                                 <span className="label-text">Email</span>
                             </label>
                             <input
-
+                                defaultValue={data?.user?.email}
                                 type="text"
                                 name="email"
                                 placeholder="email"
@@ -81,7 +99,7 @@ const Checkout = async ({ params }) => {
                             </label>
                             <input
                                 required
-                                type="text"
+                                type="number"
                                 name="phone"
                                 placeholder="Your Phone"
                                 className="input input-bordered"
@@ -92,6 +110,7 @@ const Checkout = async ({ params }) => {
                                 <span className="label-text">Present Address</span>
                             </label>
                             <input
+                                required
                                 type="text"
                                 name="address"
                                 placeholder="Your Address"
