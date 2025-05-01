@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 const handler =  NextAuth({
     session: {
         strategy: "jwt",
-        maxAge : 30 * 24 * 60 * 60
+        maxAge: 30 * 24 * 60 * 60
     },
     providers: [
         CredentialsProvider({

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const Checkout = ({ params }) => {
 
     const [service, setService] = useState({});
-    const { data } = useSession()
+    const { data } = useSession();
 
     const loadService = async () => {
         const getSingleData = await getSingleService(params.id);
@@ -21,13 +21,27 @@ const Checkout = ({ params }) => {
         event.preventDefault();
 
         const bookingData = {
-            name: event.target.name.value,
-            email: event.target.email.value,
-            phone: event.target.value.phone,
-            title: title,
+            name: data.user.name,
+            email: data.user.email,
+            phone: event.target.phone.value,
+            address: event.target.address.value,
+            date: event.target.date.value,
+            serviceTitle: title,
+            serviceImage: img,
             price: price,
-
+            serviceId: _id
         }
+
+        console.log(bookingData);
+
+        const res = await fetch('http://localhost:3000/checkout/api/new-booking', {
+            method: "POST",
+            body: JSON.stringify(bookingData),
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+        console.log(res);
 
 
     };
@@ -75,6 +89,7 @@ const Checkout = ({ params }) => {
                             </label>
                             <input
                                 defaultValue={data?.user?.email}
+                                readOnly
                                 type="text"
                                 name="email"
                                 placeholder="email"
@@ -99,7 +114,7 @@ const Checkout = ({ params }) => {
                             </label>
                             <input
                                 required
-                                type="number"
+                                type="text"
                                 name="phone"
                                 placeholder="Your Phone"
                                 className="input input-bordered"
