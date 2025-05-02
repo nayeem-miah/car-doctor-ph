@@ -6,17 +6,33 @@ import { useEffect, useState } from "react";
 
 const Page = () => {
     const [bookings, setBookings] = useState([]);
+    const [loading, setLoading] = useState(false);
     const session = useSession();
     const email = session?.data?.user?.email;
 
 
     const loadData = async () => {
+        setLoading(true)
         const res = await fetch(`http://localhost:3000/my-bookings/api/${email}`)
         const myBookings = await res.json()
         setBookings(myBookings)
+        setLoading(false)
+    }
+    // console.log(bookings);
+
+    // delete my bookings data 
+    const handleDelete = async (id) => {
+        const res = await fetch(`http://localhost:3000/my-bookings/api/delete-booking/${id}`, {
+            method: "DELETE"
+        })
+        // console.log(res.status);
+        if (res.status === 200) {
+            console.log("success delete");
+            alert("success delete")
+            loadData()
+        }
     }
 
-    // console.log(bookings);
     useEffect(() => {
         loadData()
     }, [session])
@@ -39,42 +55,44 @@ const Page = () => {
                 </div>
             </div>
             <div className="mt-12">
-                <div className="overflow-x-auto">
-                    <table className="table">
-                        {/* head */}
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Service Name</th>
-                                <th>Price</th>
-                                <th>Booking Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {/* row 1 */}
-                            {bookings?.map(({ serviceTitle, _id, date, price }) => (
-                                <tr key={_id}>
-                                    <th>1</th>
-                                    <td>{serviceTitle}</td>
-                                    <td>{price} $</td>
-                                    <td>{date}</td>
-                                    <td>
-                                        <div className="flex items-center space-x-3">
-                                            <Link href={``}><button className="btn btn-primary">Edit</button></Link>
-                                            <button
-
-                                                className="btn btn-error"
-                                            >
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </td>
+                {
+                    loading ? <div className="text-4xl text-green-50 text-center py-6 "> loading...........</div> : <div className="overflow-x-auto">
+                        <table className="table">
+                            {/* head */}
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Service Name</th>
+                                    <th>Price</th>
+                                    <th>Booking Date</th>
+                                    <th>Actions</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                {/* row 1 */}
+                                {bookings?.map(({ serviceTitle, _id, date, price }, id = 0) => (
+                                    <tr key={_id}>
+                                        <th>{id = id + 1}</th>
+                                        <td>{serviceTitle}</td>
+                                        <td>{price} $</td>
+                                        <td>{date}</td>
+                                        <td>
+                                            <div className="flex items-center space-x-3">
+                                                <Link href={``}><button className="btn btn-primary">Edit</button></Link>
+                                                <button
+                                                    onClick={() => handleDelete(_id)}
+                                                    className="btn btn-error"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div>
         </div>
     );

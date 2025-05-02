@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const Checkout = ({ params }) => {
-
     const [service, setService] = useState({});
     const { data } = useSession();
 
@@ -32,7 +31,7 @@ const Checkout = ({ params }) => {
             serviceId: _id
         }
 
-        console.log(bookingData);
+        // console.log(bookingData);
 
         const res = await fetch('http://localhost:3000/checkout/api/new-booking', {
             method: "POST",
@@ -41,7 +40,11 @@ const Checkout = ({ params }) => {
                 "content-type": "application/json"
             }
         })
-        console.log(res);
+        if (res.status === 200) {
+            console.log("success booking ");
+            alert("success bookings")
+
+        }
 
 
     };
