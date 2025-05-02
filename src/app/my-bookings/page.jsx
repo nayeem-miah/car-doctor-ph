@@ -22,11 +22,18 @@ const Page = () => {
 
     // delete my bookings data 
     const handleDelete = async (id) => {
-        const res = await fetch(`http://localhost:3000/my-bookings/api/delete-booking/${id}`, {
+        const res = await fetch(`http://localhost:3000/my-bookings/api/booking/${id}`, {
             method: "DELETE"
         })
-        // console.log(res.status);
-        if (res.status === 200) {
+        // convert json formate
+        const response = await res.json()
+        // console.log(response);
+        // if (res.status === 200) {
+        //     console.log("success delete");
+        //     alert("success delete")
+        //     loadData()
+        // }
+        if (response.data.acknowledged > 0) {
             console.log("success delete");
             alert("success delete")
             loadData()
