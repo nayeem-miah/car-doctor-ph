@@ -26,15 +26,13 @@ export const DELETE = async (request, { params }) => {
 export const PATCH = async (request, { params }) => {
     const db = await connectDB();
     const bookingsCollection = db.collection("bookings");
-    const { date, phone, address } =await request.json();
+    const updatedData =await request.json();
 
     try {
         const filter = { _id: new ObjectId(params.id) };
         const updatedDoc = {
             $set: {
-                date,
-                phone,
-                address
+               ...updatedData
             }
         };
         const options = { upsert: true };

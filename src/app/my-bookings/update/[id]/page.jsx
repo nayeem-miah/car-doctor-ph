@@ -1,60 +1,53 @@
-"use client";
-import { getSingleService } from "@/components/serviceApi/getData";
+"use client"
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const Checkout = ({ params }) => {
-    const [service, setService] = useState({});
+const Page = ({ params }) => {
     const { data } = useSession();
+    const [bookings, setBookings] = useState({});
 
-    const loadService = async () => {
-        const getSingleData = await getSingleService(params.id);
-        setService(getSingleData.data)
+    const loadData = async () => {
+        const res = await fetch(`http://localhost:3000/my-bookings/api/booking/${params.id}`);
+        // console.log(res);
+        const data = await res.json();
+        setBookings(data.data);
     }
+    console.log(bookings);
+    const { serviceTitle, serviceImage, phone, date, address, price } = bookings;
 
-    // destructure service data 
-    const { title, description, img, price, facility, _id } = service;
-
-    const handleBooking = async (event) => {
+    const handleUpdate = async (event) => {
         event.preventDefault();
-
-        const bookingData = {
-            name: data.user.name,
-            email: data.user.email,
+        const updatedData = {
             phone: event.target.phone.value,
             address: event.target.address.value,
-            date: event.target.date.value,
-            serviceTitle: title,
-            serviceImage: img,
-            price: price,
-            serviceId: _id
+            date: event.target.date.value
         }
-        // console.log(bookingData);
 
-        const res = await fetch('http://localhost:3000/checkout/api/new-booking', {
-            method: "POST",
-            body: JSON.stringify(bookingData),
+        const res = await fetch(`http://localhost:3000/my-bookings/api/booking/${params.id}`, {
+            method: "PATCH",
             headers: {
                 "content-type": "application/json"
-            }
+            },
+            body: JSON.stringify(updatedData)
         })
-
         if (res.status === 200) {
-            console.log("success booking ");
-            alert("success bookings")
+            alert("updated success");
+            console.log("data updated success");
         }
-    };
+    }
+
+
     useEffect(() => {
-        loadService()
-    }, [params])
+        loadData()
+    }, [params]);
 
     return (
         <div className="container mx-auto">
             <div className="relative  h-72">
                 <Image
                     className="absolute h-72 w-full left-0 top-0 object-cover"
-                    src={img}
+                    src={serviceImage}
                     alt="service"
                     width={1920}
                     height={1080}
@@ -62,12 +55,12 @@ const Checkout = ({ params }) => {
                 />
                 <div className="absolute h-full left-0 top-0 flex items-center justify-center bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0)] ">
                     <h1 className="text-white text-3xl font-bold flex justify-center items-center ml-8">
-                        Checkout {title}
+                        Checkout {serviceTitle}
                     </h1>
                 </div>
             </div>
             <div className="my-12 bg-slate-300 p-12">
-                <form onSubmit={handleBooking}>
+                <form onSubmit={handleUpdate}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="form-control">
                             <label className="label">
@@ -79,7 +72,7 @@ const Checkout = ({ params }) => {
                             <label className="label">
                                 <span className="label-text">Date</span>
                             </label>
-                            <input defaultValue={new Date().getDate()} type="date" name="date" className="input input-bordered" />
+                            <input defaultValue={date} type="date" name="date" className="input input-bordered" />
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -111,6 +104,7 @@ const Checkout = ({ params }) => {
                                 <span className="label-text">Phone</span>
                             </label>
                             <input
+                                defaultValue={phone}
                                 required
                                 type="text"
                                 name="phone"
@@ -124,6 +118,7 @@ const Checkout = ({ params }) => {
                             </label>
                             <input
                                 required
+                                defaultValue={address}
                                 type="text"
                                 name="address"
                                 placeholder="Your Address"
@@ -142,6 +137,6 @@ const Checkout = ({ params }) => {
             </div>
         </div>
     );
-};
+}
 
-export default Checkout;
+export default Page;

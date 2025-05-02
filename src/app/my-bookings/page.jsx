@@ -14,7 +14,7 @@ const Page = () => {
     const loadData = async () => {
         setLoading(true)
         const res = await fetch(`http://localhost:3000/my-bookings/api/${email}`)
-        const myBookings = await res.json()
+        const myBookings = await res.json();
         setBookings(myBookings)
         setLoading(false)
     }
@@ -85,7 +85,7 @@ const Page = () => {
                                         <td>{date}</td>
                                         <td>
                                             <div className="flex items-center space-x-3">
-                                                <Link href={``}><button className="btn btn-primary">Edit</button></Link>
+                                                <Link href={`/my-bookings/update/${_id}`}><button className="btn btn-primary">Edit</button></Link>
                                                 <button
                                                     onClick={() => handleDelete(_id)}
                                                     className="btn btn-error"
