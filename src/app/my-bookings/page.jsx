@@ -34,7 +34,7 @@ const Page = () => {
         //     loadData()
         // }
         if (response.data.acknowledged > 0) {
-            console.log("success delete");
+            // console.log("success delete");
             alert("success delete")
             loadData()
         }

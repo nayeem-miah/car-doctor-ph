@@ -15,7 +15,10 @@ export const connectDB = async () => {
         db =  client.db("car-doctor");
         return db;
     }catch(e){
-        console.log(e);
+        // console.log(e);
+        return Response.json({
+            e
+        })
     }
     
 }

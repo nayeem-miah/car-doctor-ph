@@ -13,7 +13,7 @@ const Page = ({ params }) => {
         const data = await res.json();
         setBookings(data.data);
     }
-    console.log(bookings);
+    // console.log(bookings);
     const { serviceTitle, serviceImage, phone, date, address, price } = bookings;
 
     const handleUpdate = async (event) => {
