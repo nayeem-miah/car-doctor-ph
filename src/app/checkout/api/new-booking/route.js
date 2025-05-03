@@ -11,7 +11,7 @@ export const POST = async (req) => {
             data : res
         }, {status: 200})
     } catch (error) {
-        console.log(error);
+        // console.error(error);
         return Response.json({
             message: error,
         }, {status: 400})

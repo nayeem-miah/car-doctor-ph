@@ -16,7 +16,7 @@ export const GET = async () => {
                 data : res
         })
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         return Response.json("something is wrong", err)
     }
 }

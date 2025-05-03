@@ -13,7 +13,7 @@ export const DELETE = async (request, { params }) => {
             data : res
         })
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return Response.json({
             message: "delete is not success !!!",
             error: error
@@ -43,7 +43,7 @@ export const PATCH = async (request, { params }) => {
             data: res
         })
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return Response.json({
             message: "updated data was not success",
             error: error
@@ -64,7 +64,7 @@ export const GET = async (request, { params }) => {
             data : res
         })
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return Response.json({
             message: "cannot find this data", 
             error: error
