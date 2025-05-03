@@ -1,6 +1,8 @@
+import axios from "axios";
+
 export const getServicesData = async () => {
-    const res = await fetch("http://localhost:3000/services/api/get-all");
-    const services = res.json();
+    const res = await axios.get("http://localhost:3000/services/api/get-all");
+    const services = res.data;
     return services;
 }
 

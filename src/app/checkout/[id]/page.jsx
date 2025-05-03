@@ -1,5 +1,5 @@
 "use client";
-import { getSingleService } from "@/components/serviceApi/getData";
+import { getSingleService } from "@/components/serviceApi/[email]/getData";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
